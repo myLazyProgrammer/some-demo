@@ -4674,7 +4674,6 @@
     }
 
     function initData (vm) {
-        debugger
         var data = vm.$options.data;
         data = vm._data = typeof data === 'function'
             ? getData(data, vm)
