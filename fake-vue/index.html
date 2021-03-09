@@ -3,8 +3,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>fake-vue</title>
-    <!-- <script src="./vue@2.6.9.js"></script> -->
-   <script src="./fake-vue.js"></script>
+    <script src="./vue@2.6.9.js"></script>
+   <!-- <script src="./fake-vue.js"></script> -->
 </head>
 <body>
 <noscript>
@@ -12,15 +12,27 @@
 </noscript>
 <div id="app">
     {{count}}
+    {{countAdd1}}
+    {{countAdd2}}
 </div>
 </body>
 <script>
-    new Vue({
+    const vm = new Vue({
         data(){
             return{
                 count: 1
             }
+        },
+        computed: {
+            countAdd1(){
+                debugger
+                return this.count + 1
+            },
+            countAdd2(){
+                return this.count + 2
+            }
         }
     }).$mount('#app')
+    console.log(vm)
 </script>
 </html>

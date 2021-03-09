@@ -4936,7 +4936,6 @@
 
     function initMixin (Vue) {
         Vue.prototype._init = function (options) {
-            debugger
             var vm = this;
             // a uid
             vm._uid = uid$3++;
@@ -9064,6 +9063,7 @@
         text,
         delimiters
     ) {
+        debugger
         var tagRE = delimiters ? buildRegex(delimiters) : defaultTagRE;
         if (!tagRE.test(text)) {
             return
