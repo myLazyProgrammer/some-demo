@@ -116,6 +116,21 @@
         while(i--){
           proxy(vm, '_data', keys[i])
         }
+
+        observe(data, true)
+      }
+
+      function observe(data, asRootData){
+        var ob
+        ob = new Observer(data)
+        if(asRootData && ob){
+          ob.vmCOunt++
+        }
+        return ob
+      }
+
+      function Observer(){
+        
       }
 
       function getData(data, vm){

@@ -920,6 +920,7 @@
      * collect dependencies and dispatch updates.
      */
     var Observer = function Observer (value) {
+        debugger
         this.value = value;
         this.dep = new Dep();
         this.vmCount = 0;
@@ -4475,6 +4476,7 @@
      * Add a dependency to this directive.
      */
     Watcher.prototype.addDep = function addDep (dep) {
+        debugger
         var id = dep.id;
         if (!this.newDepIds.has(id)) {
             this.newDepIds.add(id);
