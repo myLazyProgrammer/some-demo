@@ -16,6 +16,37 @@
         initState(vm)
       }
 
+      var Dep = function Dep(){
+        this.id = uid++
+        this.subs = []
+      }
+
+      Dep.prototype.addSub = function addSub(sub){
+        this.subs.push(sub)
+      }
+      Dep.prototype.depend = function depend(){
+        if(Dep.target){
+          Dep.target.addDep(this)
+        }
+      }
+      Dep.prototype.notify = function notify(){
+        const subs = this.subs.slice()
+        for(var i = 0; i < subs.length; i++){
+          subs[i].update()
+        }
+      }
+      Dep.target = null
+      const targetStack = []
+      function pushTarget(target){
+        targetStack.push(target)
+        Dep.target = target
+      }
+      function popTarget(){
+        targetStack.pop()
+        Dep.target = targetStack[targetStack.length - 1]
+      }
+
+
       let uid$$2 =  0
 
       var Watcher = function Watcher(
@@ -129,8 +160,57 @@
         return ob
       }
 
-      function Observer(){
-        
+      var Observer = function Observer(value){
+        this.value = value
+        this.dep = new Dep()
+        this.vmCount = 0
+        this.walk(value)
+      }
+      Observer.prototype.walk = function walk(obj){
+        const keys = Object.keys(obj)
+        for(let i = 0; i < keys.length; i++){
+          defineReactive(obj, keys[i])
+        }
+      }
+
+      function defineReactive(
+        obj,
+        key,
+        val,
+        customSetter,
+        shallow,
+      ){
+        var dep = new Dep()
+        //返回一个对象的属性描述符
+        var property = Object.getOwnPropertyDescriptor(obj, key)
+        if(property && property.configurable === false){
+          return
+        }
+        var getter = property.get
+        var setter = property.set
+        if ((!getter || setter) && arguments.length === 2) {
+          val = obj[key];
+        }
+
+        var childOb = !shallow && observe(val)
+        Object.defineProperty(obj, key, {
+          enumerable: true,
+          configurable: true,
+          get: function reactiveGetter(){
+            var value = getter ? getter.call(obj) : val
+            if(Dep.target){
+              dep.depend()
+              if(childOb){
+                childOb.dep.depend()
+              }
+            }
+            return value
+          },
+          set: function reactiveSetter(newVal){
+            var value = getter ? getter.call(obj) : val
+
+          }
+        })
       }
 
       function getData(data, vm){
