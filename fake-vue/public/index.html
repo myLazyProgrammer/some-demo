@@ -11,16 +11,45 @@
     <strong>We're sorry but this page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
 </noscript>
 <div id="app">
+    <button @click="add(1)">
+        increment
+    </button>
+    <button @click="add(-1)">
+        decrement
+    </button>
+   <div>
     {{count}}
-    {{countAdd1}}
-    {{countAdd2}}
+   </div>
+   <input type="number" id="count">
 </div>
 </body>
+<!-- <script>
+    const a = {
+        count: 0,
+    };
+    Object.defineProperty(a, 'count', {
+        set(count) {
+            document.querySelector('.count').innerHTML = count
+        },
+        get() {
+            return a.count
+        }
+    })
+
+    document.querySelector('#count').oninput = (e) => {
+        a.count = e.target.value;
+    }
+</script> -->
 <script>
     const vm = new Vue({
         data(){
             return{
-                count: 1
+                count: 5
+            }
+        },
+        methods: {
+            add(dif) {
+                this.count += dif;
             }
         },
         computed: {
@@ -33,5 +62,9 @@
         }
     }).$mount('#app')
     console.log(vm)
+
+    document.querySelector('#count').oninput = (e) => {
+        vm.count = parseInt(e.target.value);
+    }
 </script>
 </html>

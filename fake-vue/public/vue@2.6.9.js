@@ -920,7 +920,6 @@
      * collect dependencies and dispatch updates.
      */
     var Observer = function Observer (value) {
-        debugger
         this.value = value;
         this.dep = new Dep();
         this.vmCount = 0;
@@ -1025,7 +1024,6 @@
         if (property && property.configurable === false) {
             return
         }
-
         // cater for pre-defined getter/setters
         var getter = property && property.get;
         var setter = property && property.set;
@@ -4280,6 +4278,7 @@
         // do not cache length because more watchers might be pushed
         // as we run existing watchers
         for (index = 0; index < queue.length; index++) {
+            debugger
             watcher = queue[index];
             if (watcher.before) {
                 watcher.before();
@@ -4356,6 +4355,7 @@
      * pushed when the queue is being flushed.
      */
     function queueWatcher (watcher) {
+        debugger
         var id = watcher.id;
         if (has[id] == null) {
             has[id] = true;
@@ -4476,7 +4476,6 @@
      * Add a dependency to this directive.
      */
     Watcher.prototype.addDep = function addDep (dep) {
-        debugger
         var id = dep.id;
         if (!this.newDepIds.has(id)) {
             this.newDepIds.add(id);
@@ -4513,6 +4512,7 @@
      * Will be called when a dependency changes.
      */
     Watcher.prototype.update = function update () {
+        debugger
         /* istanbul ignore else */
         if (this.lazy) {
             this.dirty = true;
@@ -9065,7 +9065,6 @@
         text,
         delimiters
     ) {
-        debugger
         var tagRE = delimiters ? buildRegex(delimiters) : defaultTagRE;
         if (!tagRE.test(text)) {
             return

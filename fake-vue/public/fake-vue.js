@@ -126,7 +126,7 @@
         enumerable: true,
         configurable: true,
         get: noop,
-        set: noop
+        set: noop,
       }
       function proxy(target, sourceKey, key){
         sharedPropertyDefinition.get = function proxyGetter(){
@@ -155,7 +155,7 @@
         var ob
         ob = new Observer(data)
         if(asRootData && ob){
-          ob.vmCOunt++
+          ob.vmCount++
         }
         return ob
       }
@@ -208,7 +208,8 @@
           },
           set: function reactiveSetter(newVal){
             var value = getter ? getter.call(obj) : val
-
+            debugger
+            setter.call(obj, newVal);
           }
         })
       }
